@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import support.PostsDataProvider;
 
-import static dto.PostDto.postBody;
+import static dto.PostDto.postRequest;
 import static io.restassured.RestAssured.given;
 import static java.lang.String.format;
 import static org.apache.http.HttpStatus.SC_CREATED;
@@ -16,8 +16,8 @@ import static org.hamcrest.Matchers.anEmptyMap;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.testng.Reporter.log;
-import static support.ResponseSpec.CREATED;
-import static support.ResponseSpec.OK;
+import static support.ResponseSpec.CREATION;
+import static support.ResponseSpec.OKAY;
 
 public class PostTest {
 
@@ -54,18 +54,18 @@ public class PostTest {
         Response response = given()
                 .header("Content-Type", ContentType.JSON)
                 .and()
-                .body(postBody)
+                .body(postRequest)
                 .when()
                 .post("/posts")
                 .then()
                 .assertThat()
-                .spec(CREATED)
+                .spec(CREATION)
                 .extract().response();
 
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(response.jsonPath().getString("title"), postBody.getTitle());
-        softAssert.assertEquals(response.jsonPath().getString("body"), postBody.getBody());
-        softAssert.assertEquals(response.jsonPath().getInt("userId"), postBody.getUserId());
+        softAssert.assertEquals(response.jsonPath().getString("title"), postRequest.getTitle());
+        softAssert.assertEquals(response.jsonPath().getString("body"), postRequest.getBody());
+        softAssert.assertEquals(response.jsonPath().getInt("userId"), postRequest.getUserId());
         softAssert.assertAll();
     }
 
@@ -77,7 +77,7 @@ public class PostTest {
                 .delete("/posts/3")
                 .then()
                 .assertThat()
-                .spec(OK)
+                .spec(OKAY)
                 .and()
                 .body("$", anEmptyMap())
                 .extract().response().prettyPrint();
@@ -85,21 +85,21 @@ public class PostTest {
 
     @Test(dataProvider = "DataProviderPosts", dataProviderClass = PostsDataProvider.class)
     public void createPosts(String title, String body, int userId) {
-        postBody.setTitle(title);
-        postBody.setBody(body);
-        postBody.setUserId(userId);
+        postRequest.setTitle(title);
+        postRequest.setBody(body);
+        postRequest.setUserId(userId);
         given()
                 .header("Content-Type", ContentType.JSON)
                 .and()
-                .body(postBody)
+                .body(postRequest)
                 .when()
                 .post("/posts")
                 .then()
                 .statusCode(SC_CREATED)
                 .and()
-                .body("title", equalTo(postBody.getTitle()))
-                .body("body", equalTo(postBody.getBody()))
-                .body("userId", equalTo(postBody.getUserId()))
+                .body("title", equalTo(postRequest.getTitle()))
+                .body("body", equalTo(postRequest.getBody()))
+                .body("userId", equalTo(postRequest.getUserId()))
                 .extract().response().prettyPrint();
     }
 }

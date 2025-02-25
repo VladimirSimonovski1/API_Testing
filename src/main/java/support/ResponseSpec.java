@@ -10,13 +10,13 @@ import static org.apache.http.HttpStatus.SC_OK;
 
 public class ResponseSpec {
 
-    public static ResponseSpecification OK = new ResponseSpecBuilder()
+    public static ResponseSpecification OKAY = new ResponseSpecBuilder()
             .expectStatusCode(SC_OK)
             .expectContentType(ContentType.JSON)
             .log(LogDetail.ALL)
             .build();
 
-    public static ResponseSpecification CREATED = new ResponseSpecBuilder()
+    public static ResponseSpecification CREATION = new ResponseSpecBuilder()
             .expectStatusCode(SC_CREATED)
             .expectContentType(ContentType.JSON)
             .log(LogDetail.ALL)

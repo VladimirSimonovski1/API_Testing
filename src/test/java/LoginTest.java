@@ -6,7 +6,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import support.ListUserDataProvider;
 
-import static dto.LoginDto.loginPayload;
+import static dto.LoginDto.loginRequest;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.allOf;
@@ -14,9 +14,9 @@ import static org.hamcrest.Matchers.anEmptyMap;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotNull;
-import static support.ResponseSpec.OK;
+import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.AssertJUnit.assertNotNull;
+import static support.ResponseSpec.OKAY;
 
 public class LoginTest {
 
@@ -28,12 +28,12 @@ public class LoginTest {
         token = given()
                 .header("Content-Type", ContentType.JSON)
                 .and()
-                .body(loginPayload)
+                .body(loginRequest)
                 .when()
                 .post("/login")
                 .then()
                 .assertThat()
-                .spec(OK)
+                .spec(OKAY)
                 .and()
                 .body("token", notNullValue())
                 .extract().response().asString();
@@ -47,7 +47,7 @@ public class LoginTest {
                 .post("/logout")
                 .then()
                 .assertThat()
-                .spec(OK)
+                .spec(OKAY)
                 .and()
                 .body("$", anEmptyMap());
     }
@@ -63,7 +63,7 @@ public class LoginTest {
                 .get("/users/{userId}")
                 .then()
                 .assertThat()
-                .spec(OK)
+                .spec(OKAY)
                 .and()
                 .extract().response().as(UserDto.class);
 

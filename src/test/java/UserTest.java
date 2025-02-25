@@ -11,7 +11,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.notNullValue;
-import static support.ResponseSpec.OK;
+import static support.ResponseSpec.OKAY;
 
 public class UserTest {
 
@@ -29,7 +29,7 @@ public class UserTest {
                 .get("/users")
                 .then()
                 .assertThat()
-                .spec(OK)
+                .spec(OKAY)
                 .extract().response().as(UsersDto.class);
 
         assertThat(response, allOf(

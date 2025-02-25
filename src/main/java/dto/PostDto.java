@@ -15,7 +15,7 @@ public class PostDto {
     private String body;
     private int userId;
 
-    public static PostDto postBody = PostDto.builder()
+    public static PostDto postRequest = PostDto.builder()
             .title("Title")
             .body("Body")
             .userId(77)
