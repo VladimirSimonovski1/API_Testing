@@ -97,8 +97,8 @@ public class PostTest {
                 .then()
                 .statusCode(SC_CREATED)
                 .and()
-                .body("title", equalTo(postBody.getTitle()))
                 .body("body", equalTo(postBody.getBody()))
+                .body("title", equalTo(postBody.getTitle()))
                 .body("userId", equalTo(postBody.getUserId()))
                 .extract().response().prettyPrint();
     }
