@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-        jdk 'C:/Program Files/Java/jdk-23'
+        jdk 'JDK 23'
     }
     stages {
         stage('Build') {
