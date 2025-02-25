@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<!--<suite name="APITesting" parallel="methods" thread-count="2">-->
+<suite name="APITesting">
+    <test name="API Test Suite">
+        <classes>
+            <class name="UserTest"/>
+            <class name="PostTest"/>
+            <class name="LoginTest"/>
+        </classes>
+    </test>
+</suite>
