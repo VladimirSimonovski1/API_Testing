@@ -1,12 +1,18 @@
 pipeline {
     agent any
     tools {
-        jdk 'JDK 23'
+        jdk 'JDK 17'
     }
     stages {
+        stage('Clean') {
+                steps {
+                    bat 'mvn clean'
+                }
+            }
+
         stage('Build') {
             steps {
-                bat 'mvn clean install'
+                bat 'mvn install'
             }
         }
         stage('Test') {
